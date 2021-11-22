@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       dex: { type: DataTypes.INTEGER, allowNull: false },
       will: { type: DataTypes.INTEGER, allowNull: false },
       pips: DataTypes.INTEGER,
+      userId: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       sequelize,
