@@ -10,9 +10,17 @@ module.exports = {
       },
       sheetId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "sheets",
+          key: "id",
+        },
       },
       itemId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "items",
+          key: "id",
+        },
       },
       isworn: {
         type: Sequelize.BOOLEAN,

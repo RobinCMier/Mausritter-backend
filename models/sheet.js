@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      sheet.belongsTo(models.user);
+      sheet.belongsToMany(models.items, {
+        through: "sheet_items",
+        foreignKey: "sheetId",
+      });
     }
   }
   sheet.init(
