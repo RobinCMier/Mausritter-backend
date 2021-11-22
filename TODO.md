@@ -1,12 +1,12 @@
 ===Setting up DB===
 
-1. init & connect
-2. model & migration user
-3. model & migration sheet
-4. model & migration item
-5. model & migration sheet_items
-6. add all relations
-   -- read up on many to many
+V1. init & connect
+V2. model & migration user
+V3. model & migration sheet
+V4. model & migration item
+V5. model & migration sheet_items
+V6. add all relations
+
 7. seed user
    -- figure out password scramble
 8. seed sheet

@@ -47,7 +47,7 @@ module.exports = {
         references: {
           model: "users",
           key: "id",
-        },
+        }, //update cascade delete null
       },
       createdAt: {
         allowNull: false,

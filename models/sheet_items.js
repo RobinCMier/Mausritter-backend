@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      sheet_items.belongsTo(models.sheet), sheet_items.belongsTo(models.items);
+      sheet_items.belongsTo(models.sheet);
+      sheet_items.belongsTo(models.items);
     }
   }
   sheet_items.init(
