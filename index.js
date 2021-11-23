@@ -13,7 +13,7 @@ const app = express();
 //MIDDLEWARE
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
-
+// ALL ENDPOINTS ARE PROTECTED THUS NEED A JWT MIDDLEWARE
 //ROUTING
 //testing: get all sheet names of one user
 

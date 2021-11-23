@@ -31,9 +31,9 @@ router.post("/signup", async (req, res) => {
     });
     console.log("Looking for pw.. ", newUser.dataValues.password);
     delete newUser.dataValues.password;
-    const token = toJWT({userId:newUser.id})
+    const token = toJWT({ userId: newUser.id }); //token has the ID encrypted in it. That's why ID is also sent in token.
     //to do: TEST hash, add token.
-    res.status(201).json({token,...newUser.dataValues});
+    res.status(201).json({ token, ...newUser.dataValues });
   } catch (e) {
     console.log("this is the error: ", e);
     return res.status(400).send({
@@ -43,6 +43,31 @@ router.post("/signup", async (req, res) => {
 });
 //LOG IN
 // when logging in, decrypt the password bcrypt.comparesync
+router.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res
+        .status(400)
+        .send({ message: "Please provide both email and password" });
+    }
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return res.status(400).send({
+        message: "User with that email not found or password incorrect",
+      });
+    }
+
+    delete user.dataValues["password"]; // don't send back the password hash
+    const token = toJWT({ userId: user.id });
+    return res.status(200).send({ token, ...user.dataValues });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
 //export the router
 module.exports = router;
