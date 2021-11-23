@@ -15,22 +15,16 @@ const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
 // ALL ENDPOINTS ARE PROTECTED THUS NEED A JWT MIDDLEWARE
 //ROUTING
-//testing: get all sheet names of one user
+/* 
 
-app.get("/", async (req, res) => {
-  try {
-    console.log("You are requesting all sheets of one user..");
-    const allSheets = await User.findByPk(1, {
-      include: [{ model: Sheet, attributes: ["charName"] }],
-    });
-    console.log("res is: ", allSheets);
-    return res.status(200).send({ message: "ok", allSheets });
-  } catch (e) {
-    console.log(e);
-  }
-});
+POST "/auth/login" => login page
+POST "/auth/signup" => sign up page
+GET "/sheet/"=> user homepage
+
+*/
 //listing routers
-app.use("/", authRouter);
+app.use("/auth", authRouter);
+app.use("/sheet", sheetRouter);
 
 //port & listen
 const port = 4000;
