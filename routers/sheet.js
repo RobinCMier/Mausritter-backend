@@ -16,12 +16,12 @@ router.get("/:id", async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
     // console.log("You are requesting all sheets of user id: ", userId);
-    const allSheets = await User.findByPk(userId, {
+    const userFull = await User.findByPk(userId, {
       //URL FOR NOW CHANGE TO JWT LATER
-      include: [{ model: Sheet, attributes: ["charName"] }],
+      include: [{ model: Sheet }],
     });
     // console.log("res is: ", allSheets);
-    return res.status(200).send({ message: "ok", allSheets });
+    return res.status(200).send({ message: "ok", userFull });
   } catch (e) {
     console.log(e);
     return res.status(400).send({ message: "Something went wrong, soz" });
