@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       dex: { type: DataTypes.INTEGER, allowNull: false },
       will: { type: DataTypes.INTEGER, allowNull: false },
       pips: DataTypes.INTEGER,
+      charColor: { type: DataTypes.STRING, defaultValue: "#b1f59d" },
       userId: { type: DataTypes.INTEGER, allowNull: false },
     },
     {

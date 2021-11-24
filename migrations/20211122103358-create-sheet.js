@@ -41,6 +41,10 @@ module.exports = {
       pips: {
         type: Sequelize.INTEGER,
       },
+      charColor: {
+        type: Sequelize.STRING,
+        defaultValue: "#b1f59d",
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
