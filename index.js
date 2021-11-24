@@ -1,6 +1,7 @@
 //imports
 const express = require("express");
 const { Router } = express;
+const corsMiddleWare = require("cors");
 const authRouter = require("./routers/auth");
 const sheetRouter = require("./routers/sheet");
 //import models
@@ -11,6 +12,7 @@ const SheetItems = require("./models").sheet_items;
 //create server
 const app = express();
 //MIDDLEWARE
+app.use(corsMiddleWare());
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
 // ALL ENDPOINTS ARE PROTECTED THUS NEED A JWT MIDDLEWARE
@@ -19,7 +21,7 @@ app.use(bodyParserMiddleWare);
 
 POST "/auth/login" => login page
 POST "/auth/signup" => sign up page
-GET "/sheet/"=> user homepage
+GET "/sheet/:id"=> user homepage
 
 */
 //listing routers
