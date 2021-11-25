@@ -58,25 +58,25 @@ router.post("/postsheet", async (req, res) => {
   }
   const user = await User.findByPk(req.body.userId);
   console.log("user is: ", user);
-  // try {
-  //   const newUser = await Sheet.create({
-  //     charName,
-  //     charColor,
-  //     level,
-  //     background,
-  //     pips,
-  //     currentHP,
-  //     maxHP,
-  //     str,
-  //     dex,
-  //     will,
-  //     userId
-  //   });
-  //   res.status(201).json({...newUser.dataValues });
-  // } catch (e) {
-  //   console.log("this is the error: ", e);
-  //   return res.status(400).send({
-  //     message: "Something went wrong, please try again or notify the developer",
-  //   });
-  // }
+  try {
+    const newUser = await Sheet.create({
+      charName,
+      charColor,
+      level,
+      background,
+      pips,
+      currentHP,
+      maxHP,
+      str,
+      dex,
+      will,
+      userId,
+    });
+    res.status(201).json({ ...newUser.dataValues });
+  } catch (e) {
+    console.log("this is the error: ", e);
+    return res.status(400).send({
+      message: "Something went wrong, please try again or notify the developer",
+    });
+  }
 });
