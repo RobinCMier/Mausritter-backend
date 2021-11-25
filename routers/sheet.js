@@ -32,7 +32,44 @@ router.get("/:id", async (req, res) => {
 module.exports = router;
 
 // PATCH request to edit the sheet
-
+router.patch("/editsheet/:id", async (req, res) => {
+  try {
+    const sheetId = parseInt(req.params.id);
+    console.log("id is: ", sheetId);
+    const sheetToUpdate = await Sheet.findByPk(sheetId);
+    const {
+      charName,
+      charColor,
+      level,
+      charBackground,
+      pips,
+      currentHP,
+      maxHP,
+      str,
+      dex,
+      will,
+      userId,
+    } = req.body; //new value
+    console.log("new values ", req.body);
+    await sheetToUpdate.update({
+      charName,
+      charColor,
+      level,
+      charBackground,
+      pips,
+      currentHP,
+      maxHP,
+      str,
+      dex,
+      will,
+      userId,
+    });
+    console.log("this is the updated sheet: ", sheetToUpdate.dataValues);
+    res.status(200).send(sheetToUpdate.dataValues);
+  } catch (e) {
+    console.log(`Patch endpoint failed. Message: ${e}`);
+  }
+});
 // POST request to create a new sheet
 router.post("/postsheet", async (req, res) => {
   console.log(" this is the req. body ", req.body);
@@ -40,7 +77,7 @@ router.post("/postsheet", async (req, res) => {
     charName,
     charColor,
     level,
-    background,
+    charBackground,
     pips,
     currentHP,
     maxHP,
@@ -59,11 +96,11 @@ router.post("/postsheet", async (req, res) => {
   const user = await User.findByPk(req.body.userId);
   console.log("user is: ", user);
   try {
-    const newUser = await Sheet.create({
+    const newSheet = await Sheet.create({
       charName,
       charColor,
       level,
-      background,
+      charBackground,
       pips,
       currentHP,
       maxHP,
@@ -72,7 +109,7 @@ router.post("/postsheet", async (req, res) => {
       will,
       userId,
     });
-    res.status(201).json({ ...newUser.dataValues });
+    res.status(201).json({ ...newSheet.dataValues });
   } catch (e) {
     console.log("this is the error: ", e);
     return res.status(400).send({
