@@ -18,12 +18,13 @@ module.exports = (sequelize, DataTypes) => {
   sheet.init(
     {
       charName: { type: DataTypes.STRING, allowNull: false },
-      level: { type: DataTypes.INTEGER, allowNull: false },
+      level: { type: DataTypes.INTEGER },
+      charBackground: { type: DataTypes.STRING },
       currentHP: DataTypes.INTEGER,
-      maxHP: { type: DataTypes.INTEGER, allowNull: false },
-      str: { type: DataTypes.INTEGER, allowNull: false },
-      dex: { type: DataTypes.INTEGER, allowNull: false },
-      will: { type: DataTypes.INTEGER, allowNull: false },
+      maxHP: { type: DataTypes.INTEGER },
+      str: { type: DataTypes.INTEGER },
+      dex: { type: DataTypes.INTEGER },
+      will: { type: DataTypes.INTEGER },
       pips: DataTypes.INTEGER,
       charColor: { type: DataTypes.STRING, defaultValue: "#b1f59d" },
       userId: { type: DataTypes.INTEGER, allowNull: false },

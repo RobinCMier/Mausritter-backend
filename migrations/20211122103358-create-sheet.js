@@ -17,26 +17,24 @@ module.exports = {
       },
       level: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+      },
+      charBackground: {
+        type: Sequelize.STRING,
       },
       currentHP: {
         type: Sequelize.INTEGER,
       },
       maxHP: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       str: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       dex: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       will: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       pips: {
         type: Sequelize.INTEGER,

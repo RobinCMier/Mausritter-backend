@@ -11,7 +11,8 @@ const SheetItems = require("../models").sheet_items;
 //define router
 const router = new Router();
 
-//endpoints
+//ENDPOINTS
+//GET request to get all sheets of one user
 router.get("/:id", async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
@@ -29,3 +30,53 @@ router.get("/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+// PATCH request to edit the sheet
+
+// POST request to create a new sheet
+router.post("/postsheet", async (req, res) => {
+  console.log(" this is the req. body ", req.body);
+  const {
+    charName,
+    charColor,
+    level,
+    background,
+    pips,
+    currentHP,
+    maxHP,
+    str,
+    dex,
+    will,
+    userId,
+  } = req.body;
+  if (!charName) {
+    return res
+      .status(400)
+      .send(
+        "You can edit everything later, but please provide at least a name!"
+      );
+  }
+  const user = await User.findByPk(req.body.userId);
+  console.log("user is: ", user);
+  // try {
+  //   const newUser = await Sheet.create({
+  //     charName,
+  //     charColor,
+  //     level,
+  //     background,
+  //     pips,
+  //     currentHP,
+  //     maxHP,
+  //     str,
+  //     dex,
+  //     will,
+  //     userId
+  //   });
+  //   res.status(201).json({...newUser.dataValues });
+  // } catch (e) {
+  //   console.log("this is the error: ", e);
+  //   return res.status(400).send({
+  //     message: "Something went wrong, please try again or notify the developer",
+  //   });
+  // }
+});
