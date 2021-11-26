@@ -8,12 +8,13 @@ const Items = require("../models").items;
 const User = require("../models").user;
 const Sheet = require("../models").sheet;
 const SheetItems = require("../models").sheet_items;
+const authMiddleware = require("../auth/middleware");
 //define router
 const router = new Router();
 
 //ENDPOINTS
 //GET request to get all sheets of one user
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware, async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
     // console.log("You are requesting all sheets of user id: ", userId);
