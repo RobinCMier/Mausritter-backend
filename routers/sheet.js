@@ -49,7 +49,7 @@ router.patch("/editsheet/:id", async (req, res) => {
       dex,
       will,
       userId,
-    } = req.body; //new value
+    } = req.body.sheet; //new value
     console.log("new values ", req.body);
     await sheetToUpdate.update({
       charName,
@@ -84,8 +84,9 @@ router.post("/postsheet", async (req, res) => {
     str,
     dex,
     will,
-    userId, //needs to get this from frontend
-  } = req.body;
+  } = req.body.fullSheet; //all ints are strings tho
+  const userId = req.body.userId;
+  console.log("CharName and level: ", charName, level);
   if (!charName) {
     return res
       .status(400)
@@ -99,20 +100,21 @@ router.post("/postsheet", async (req, res) => {
     const newSheet = await Sheet.create({
       charName,
       charColor,
-      level,
+      level: parseInt(level),
       charBackground,
-      pips,
-      currentHP,
-      maxHP,
-      str,
-      dex,
-      will,
+      pips: parseInt(pips),
+      currentHP: parseInt(currentHP),
+      maxHP: parseInt(maxHP),
+      str: parseInt(str),
+      dex: parseInt(dex),
+      will: parseInt(will),
       userId,
     });
     res.status(201).json({ ...newSheet.dataValues });
   } catch (e) {
     console.log("this is the error: ", e);
     return res.status(400).send({
+      //if statement "if parse error (is waars type error), stuur message 'please enter valid info' oid"
       message: "Something went wrong, please try again or notify the developer",
     });
   }
