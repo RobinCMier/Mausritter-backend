@@ -69,5 +69,12 @@ router.post("/login", async (req, res, next) => {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
+//me endpoint to get the users email and name just by token, and to check if token is still valid.
+router.get("/me", authMiddleware, async (req, res) => {
+  // don't send back the password hash
+  delete req.user.dataValues["password"];
+  res.status(200).send({ ...req.user.dataValues }); //user is declared in middleware
+});
+
 //export the router
 module.exports = router;

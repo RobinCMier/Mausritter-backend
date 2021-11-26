@@ -54,14 +54,14 @@ router.patch("/editsheet/:id", async (req, res) => {
     await sheetToUpdate.update({
       charName,
       charColor,
-      level,
+      level: parseInt(level),
       charBackground,
-      pips,
-      currentHP,
-      maxHP,
-      str,
-      dex,
-      will,
+      pips: parseInt(pips),
+      currentHP: parseInt(currentHP),
+      maxHP: parseInt(maxHP),
+      str: parseInt(str),
+      dex: parseInt(dex),
+      will: parseInt(will),
       userId,
     });
     console.log("this is the updated sheet: ", sheetToUpdate.dataValues);
@@ -114,7 +114,6 @@ router.post("/postsheet", async (req, res) => {
   } catch (e) {
     console.log("this is the error: ", e);
     return res.status(400).send({
-      //if statement "if parse error (is waars type error), stuur message 'please enter valid info' oid"
       message: "Something went wrong, please try again or notify the developer",
     });
   }
