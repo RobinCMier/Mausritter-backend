@@ -2,7 +2,7 @@
 const express = require("express");
 const { Router } = express;
 const corsMiddleWare = require("cors");
-const authMiddleware = require("../auth/middleware");
+const authMiddleware = require("./auth/middleware");
 
 //import routers
 const authRouter = require("./routers/auth");
