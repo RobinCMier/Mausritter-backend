@@ -127,16 +127,17 @@ router.delete("/:userId/delete/:sheetId", async (req, res, next) => {
     const userId = parseInt(req.params.userId);
     const sheetId = parseInt(req.params.sheetId);
     console.log("what is userId ", userId);
-    const sheet = await Sheet.findByPk(sheetId, { include: [User] });
-    console.log(
-      " these are the sheet and the attached user: ",
-      sheet.dataValues,
-      sheet.dataValues.user.dataValues.id
-    );
+    const sheet = await Sheet.findByPk(sheetId);
+    // console.log(
+    //   " these are the sheet and the attached user: ",
+    //   sheet.dataValues,
+    //   sheet.dataValues.user.dataValues.id
+    // );
+    console.log("this is sheet: ", sheet);
     if (!sheet) {
       return res.status(404).send("Story not found");
     }
-    if (sheet.dataValues.user.dataValues.id !== userId) {
+    if (sheet.userId !== userId) {
       return res.status(401).send("You're not authorized to delete this sheet");
     }
     await sheet.destroy();
@@ -146,3 +147,22 @@ router.delete("/:userId/delete/:sheetId", async (req, res, next) => {
     next(e);
   }
 });
+// router.delete("/delete", async (req, res, next) => {
+//   try {
+//     const userId = 2;
+//     const sheetId = 2;
+//     const sheet = await Sheet.findByPk(sheetId);
+//     console.log("this is sheet: ", sheet);
+//     if (!sheet) {
+//       return res.status(404).send("Story not found");
+//     }
+//     // if (sheet.userId !== userId) {
+//     //   return res.status(401).send("You're not authorized to delete this sheet");
+//     // }
+//     await sheet.destroy();
+
+//     res.send({ message: "ok", sheetId });
+//   } catch (e) {
+//     next(e);
+//   }
+// });

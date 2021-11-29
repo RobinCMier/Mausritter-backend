@@ -49,7 +49,9 @@ module.exports = {
         references: {
           model: "users",
           key: "id",
-        }, //update cascade delete null
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL", //update cascade delete null
       },
       createdAt: {
         allowNull: false,
