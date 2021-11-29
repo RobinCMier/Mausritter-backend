@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
     delete newUser.dataValues.password;
     const token = toJWT({ userId: newUser.id }); //token has the ID encrypted in it. That's why ID is also sent in token.
     //to do: TEST hash, add token.
-    res.status(201).json({ token, ...newUser.dataValues });
+    res.status(201).json({ token, ...newUser.dataValues, sheets: [] });
   } catch (e) {
     console.log("this is the error: ", e);
     return res.status(400).send({
@@ -54,7 +54,7 @@ router.post("/login", async (req, res, next) => {
         .send({ message: "Please provide both email and password" });
     }
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email }, include: Sheet });
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({
@@ -72,9 +72,11 @@ router.post("/login", async (req, res, next) => {
 });
 //me endpoint to get the users email and name just by token, and to check if token is still valid.
 router.get("/me", authMiddleware, async (req, res) => {
+  //data comes from the middleware.
   // don't send back the password hash
   delete req.user.dataValues["password"];
-  res.status(200).send({ ...req.user.dataValues }); //user is declared in middleware
+  const sheets = await Sheet.findAll({ where: { userId: req.user.id } });
+  res.status(200).send({ ...req.user.dataValues, sheets: sheets }); //user is declared in middleware
 });
 
 //export the router
