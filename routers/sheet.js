@@ -86,15 +86,23 @@ router.post("/postsheet", async (req, res) => {
     dex,
     will,
   } = req.body.fullSheet; //all ints are strings tho
-  const userId = req.body.userId;
-  console.log("CharName and level: ", charName, level);
-  if (!charName) {
+
+  if (
+    !charName ||
+    !level ||
+    !charBackground ||
+    !pips ||
+    !maxHP ||
+    !str ||
+    !dex ||
+    !will
+  ) {
     return res
       .status(400)
-      .send(
-        "You can edit everything later, but please provide at least a name!"
-      );
+      .send("You can edit everything later, but please fill it in completely!");
   }
+  const userId = req.body.userId;
+  console.log("CharName and level: ", charName, level);
   const user = await User.findByPk(req.body.userId);
   console.log("user is: ", user);
   try {
