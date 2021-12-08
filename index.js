@@ -2,7 +2,6 @@
 const express = require("express");
 const { Router } = express;
 const corsMiddleWare = require("cors");
-const authMiddleware = require("./auth/middleware");
 
 //import routers
 const authRouter = require("./routers/auth");
@@ -21,7 +20,7 @@ app.use("/auth", authRouter);
 app.use("/sheet", sheetRouter);
 
 //port & listen
-const port = 4000;
+const port = process.env.port || 4000;
 app.listen(port, () => {
   console.log(`Welcome to radio ${port}`);
 });
